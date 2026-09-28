@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickNotes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>QuickNotes</h1>
+        <p>Your simple note-taking workspace</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Add a note</h2>
+            <form id="note-form">
+                <label for="note-input">Note:</label>
+                <input type="text" id="note-input" placeholder="Write a note...">
+                
+                <label for="note-category">Category:</label>
+                <select id="note-category">
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="Study">Study</option>
+                </select>
+
+                <button type="submit">Add Note</button>
+            </form>
+            <p id="error-message"></p>
+        </section>
+
+        <section>
+            <h2>Your notes</h2>
+            <input type="text" id="search-input" placeholder="Search notes...">
+            <p id="note-count">You have no notes yet.</p>
+            <button type="button" id="clear-all-btn">Clear all</button>
+            <ul id="notes-list"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 QuickNotes. All rights reserved.</p>
+    </footer>
+</body>
+</html>
