@@ -10,6 +10,22 @@ const clearAllBtn = document.querySelector("#clear-all-btn");
 
 let notes = [];
 
+function updateCount() {
+  const count = notes.length;
+  if (count === 0) {
+    noteCount.textContent = "You have no notes yet.";
+  } else if (count === 1) {
+    noteCount.textContent = "You have 1 note.";
+  } else {
+    noteCount.textContent = `You have ${count} notes.`;
+  }
+}
+
+function deleteNote(id) {
+  notes = notes.filter((note) => note.id !== id);
+  render();
+}
+
 function render() {
   notesList.textContent = "";
 
@@ -35,22 +51,45 @@ function render() {
     metaDiv.appendChild(badgeSpan);
     metaDiv.appendChild(dateSpan);
 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "delete-btn";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => {
+      deleteNote(note.id);
+    });
+
     li.appendChild(textSpan);
     li.appendChild(metaDiv);
+    li.appendChild(deleteBtn);
 
     notesList.appendChild(li);
   });
+
+  updateCount();
 }
 
 noteForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const text = noteInput.value.trim();
-  const category = noteCategory.value;
+  const rawText = noteInput.value;
+  const trimmedText = rawText.trim();
+
+  if (trimmedText.length === 0) {
+    errorMessage.textContent = "Please type a note first.";
+    return;
+  }
+
+  if (trimmedText.length > 200) {
+    errorMessage.textContent = "Notes must be 200 characters or fewer.";
+    return;
+  }
+
+  errorMessage.textContent = "";
 
   const newNote = {
     id: Date.now(),
-    text: text,
-    category: category,
+    text: trimmedText,
+    category: noteCategory.value,
     createdAt: new Date().toLocaleString(),
   };
 
